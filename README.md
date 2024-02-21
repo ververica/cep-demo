@@ -1,6 +1,28 @@
-# ververica-cep-demo
-Demo of Flink CEP with dynamic patterns.
+# Dynamic CEP Demo
 
-# !!Note!!
-The jar of flink-cep that supports dynamic CEP in [public maven](https://mvnrepository.com/artifact/com.alibaba.ververica/flink-cep/1.15-vvr-6.0.2-api) is an API jar that does not contain full implementation. So users can not directly use it in their local machine/cluster.
-Instead, users can use it for writing codes or packaging but the final job jar must be submitted to [Flink managed by Aliyun](https://www.alibabacloud.com/product/realtime-compute) | [阿里云实时计算Flink版](https://www.aliyun.com/product/bigdata/sc) as the dynamic CEP is currently a commercial feature.
+A demo of Flink CEP with dynamic patterns.
+
+Please follow the example [blog post]() to deploy and run it on the [Ververica Cloud]().
+
+## Prerequisite
+
+- Java JDK version 11 or above
+- Maven build tool version 3.9.5 or above
+
+## Building
+
+To build and to create the jar file, run the following command:
+
+```sh
+mvn clean verify
+```
+
+The `JAR` artifact file will be created in path `target/ververica-cep-demo-<VERSION>.jar`.
+
+## Acknowledgment
+
+The initial version of this demo was provided in `RealtimeCompute/ververica-cep-demo` repository.
+
+## License
+
+[MIT License (MIT)](LICENSE)
