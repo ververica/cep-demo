@@ -33,8 +33,7 @@ import java.util.TimerTask;
  *
  * @param <T> Base type of the elements appearing in the pattern.
  */
-public abstract class PeriodicPatternProcessorDiscoverer<T>
-        implements PatternProcessorDiscoverer<T> {
+public abstract class PeriodicPatternProcessorDiscoverer<T> implements PatternProcessorDiscoverer<T> {
 
     private final Long intervalMillis;
 

@@ -59,11 +59,8 @@ import static java.util.Objects.requireNonNull;
  *
  * @param <T> Base type of the elements appearing in the pattern.
  */
-public class JDBCPeriodicPatternProcessorDiscoverer<T>
-        extends PeriodicPatternProcessorDiscoverer<T> {
-
-    private static final Logger LOG =
-            LoggerFactory.getLogger(JDBCPeriodicPatternProcessorDiscoverer.class);
+public class JDBCPeriodicPatternProcessorDiscoverer<T> extends PeriodicPatternProcessorDiscoverer<T> {
+    private static final Logger LOG = LoggerFactory.getLogger(JDBCPeriodicPatternProcessorDiscoverer.class);
 
     private final String tableName;
     private final String jdbcUrl;

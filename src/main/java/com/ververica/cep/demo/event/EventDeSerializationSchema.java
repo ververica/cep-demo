@@ -10,7 +10,6 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import java.io.IOException;
 
 public class EventDeSerializationSchema implements KafkaRecordDeserializationSchema<Event> {
-
     private static final long serialVersionUID = 6154188370181669758L;
 
     @Override

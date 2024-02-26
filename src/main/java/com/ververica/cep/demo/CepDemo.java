@@ -34,18 +34,16 @@ import static com.ververica.cep.demo.Constants.JDBC_URL_ARG;
 import static com.ververica.cep.demo.Constants.KAFKA_BROKERS_ARG;
 import static com.ververica.cep.demo.Constants.TABLE_NAME_ARG;
 
+/**
+ * Dynamic CEP demo main class.
+ */
 public class CepDemo {
 
-    public static void printTestPattern(Pattern<?, ?> pattern) throws JsonProcessingException {
-        System.out.println(CepJsonUtils.convertPatternToJSONString(pattern));
-    }
-
-    public static void checkArg(String argName, MultipleParameterTool params) {
-        if (!params.has(argName)) {
-            throw new IllegalArgumentException(argName + " must be set!");
-        }
-    }
-
+    /**
+     * Main entry method.
+     *
+     * @param args user provided arguments
+     */
     public static void main(String[] args) throws Exception {
         // Process args
         final MultipleParameterTool params = MultipleParameterTool.fromArgs(args);
@@ -59,7 +57,7 @@ public class CepDemo {
         // Set up the streaming execution environment
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        // Build Kafka source with new Source API based on FLIP-27
+        // Build Kafka source
         KafkaSource<Event> kafkaSource =
                 KafkaSource.<Event>builder()
                         .setProperty("security.protocol", "SASL_SSL")
@@ -84,7 +82,7 @@ public class CepDemo {
         env.setParallelism(1);
 
         // keyBy userId and productionId
-        // Notes, only events with the same key will be processd to see if there is a match
+        // Note that only events with the same key will be processed to see if there is a match
         KeyedStream<Event, Tuple2<Integer, Integer>> keyedStream =
                 source.keyBy(
                         new KeySelector<Event, Tuple2<Integer, Integer>>() {
@@ -121,4 +119,15 @@ public class CepDemo {
         // Compile and submit the job
         env.execute("CEPDemo");
     }
+
+    private static void printTestPattern(Pattern<?, ?> pattern) throws JsonProcessingException {
+        System.out.println(CepJsonUtils.convertPatternToJSONString(pattern));
+    }
+
+    private static void checkArg(String argName, MultipleParameterTool params) {
+        if (!params.has(argName)) {
+            throw new IllegalArgumentException("The argument '" + argName + "' must be set!");
+        }
+    }
+
 }

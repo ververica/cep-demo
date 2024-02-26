@@ -51,17 +51,7 @@ public class Event {
 
     @Override
     public String toString() {
-        return "Event("
-                + id
-                + ", "
-                + name
-                + ", "
-                + action
-                + ", "
-                + productionId
-                + ", "
-                + eventTime
-                + ")";
+        return "Event(" + id + ", " + name + ", " + action + ", " + productionId + ", " + eventTime + ")";
     }
 
     @Override

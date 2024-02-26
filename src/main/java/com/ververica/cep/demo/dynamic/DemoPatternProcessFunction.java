@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 public class DemoPatternProcessFunction<IN> extends PatternProcessFunction<IN, String> {
-    String id;
-    int version;
+    private final String id;
+    private final int version;
 
     public DemoPatternProcessFunction(String id, int version) {
         this.id = id;
@@ -16,8 +16,7 @@ public class DemoPatternProcessFunction<IN> extends PatternProcessFunction<IN, S
     }
 
     @Override
-    public void processMatch(
-            final Map<String, List<IN>> match, final Context ctx, final Collector<String> out) {
+    public void processMatch(final Map<String, List<IN>> match, final Context ctx, final Collector<String> out) {
         StringBuilder sb = new StringBuilder();
         sb.append("A match for Pattern of (id, version): (")
                 .append(id)
