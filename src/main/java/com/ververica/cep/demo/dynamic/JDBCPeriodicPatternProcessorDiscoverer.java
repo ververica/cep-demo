@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.alibaba.ververica.cep.demo.dynamic;
+package com.ververica.cep.demo.dynamic;
 
 import org.apache.flink.api.java.tuple.Tuple4;
 import org.apache.flink.cep.dynamic.impl.json.deserializer.ConditionSpecStdDeserializer;

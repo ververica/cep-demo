@@ -1,4 +1,4 @@
-package com.alibaba.ververica.cep.demo.dynamic;
+package com.ververica.cep.demo.dynamic;
 
 import org.apache.flink.cep.dynamic.processor.PatternProcessor;
 import org.apache.flink.cep.dynamic.processor.PatternProcessorDiscoverer;

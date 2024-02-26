@@ -1,4 +1,4 @@
-package com.alibaba.ververica.cep.demo;
+package com.ververica.cep.demo;
 
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.typeinfo.TypeHint;
@@ -20,19 +20,19 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.core.JsonProcessingException;
 
-import com.alibaba.ververica.cep.demo.condition.EndCondition;
-import com.alibaba.ververica.cep.demo.condition.StartCondition;
-import com.alibaba.ververica.cep.demo.dynamic.JDBCPeriodicPatternProcessorDiscovererFactory;
-import com.alibaba.ververica.cep.demo.event.Event;
-import com.alibaba.ververica.cep.demo.event.EventDeSerializationSchema;
+import com.ververica.cep.demo.condition.EndCondition;
+import com.ververica.cep.demo.condition.StartCondition;
+import com.ververica.cep.demo.dynamic.JDBCPeriodicPatternProcessorDiscovererFactory;
+import com.ververica.cep.demo.event.Event;
+import com.ververica.cep.demo.event.EventDeSerializationSchema;
 
-import static com.alibaba.ververica.cep.demo.Constants.INPUT_TOPIC_ARG;
-import static com.alibaba.ververica.cep.demo.Constants.INPUT_TOPIC_GROUP_ARG;
-import static com.alibaba.ververica.cep.demo.Constants.JDBC_DRIVE;
-import static com.alibaba.ververica.cep.demo.Constants.JDBC_INTERVAL_MILLIS_ARG;
-import static com.alibaba.ververica.cep.demo.Constants.JDBC_URL_ARG;
-import static com.alibaba.ververica.cep.demo.Constants.KAFKA_BROKERS_ARG;
-import static com.alibaba.ververica.cep.demo.Constants.TABLE_NAME_ARG;
+import static com.ververica.cep.demo.Constants.INPUT_TOPIC_ARG;
+import static com.ververica.cep.demo.Constants.INPUT_TOPIC_GROUP_ARG;
+import static com.ververica.cep.demo.Constants.JDBC_DRIVE;
+import static com.ververica.cep.demo.Constants.JDBC_INTERVAL_MILLIS_ARG;
+import static com.ververica.cep.demo.Constants.JDBC_URL_ARG;
+import static com.ververica.cep.demo.Constants.KAFKA_BROKERS_ARG;
+import static com.ververica.cep.demo.Constants.TABLE_NAME_ARG;
 
 public class CepDemo {
 
@@ -62,6 +62,11 @@ public class CepDemo {
         // Build Kafka source with new Source API based on FLIP-27
         KafkaSource<Event> kafkaSource =
                 KafkaSource.<Event>builder()
+                        .setProperty("security.protocol", "SASL_SSL")
+                        .setProperty("sasl.mechanism", "AWS_MSK_IAM")
+                        .setProperty("sasl.jaas.config", "software.amazon.msk.auth.iam.IAMLoginModule required;")
+                        .setProperty("sasl.client.callback.handler.class", "software.amazon.msk.auth.iam.IAMClientCallbackHandler")
+                        .setProperty("ssl.endpoint.identification.algorithm", "")
                         .setBootstrapServers(params.get(KAFKA_BROKERS_ARG))
                         .setTopics(params.get(INPUT_TOPIC_ARG))
                         .setStartingOffsets(OffsetsInitializer.latest())

@@ -1,4 +1,4 @@
-package com.alibaba.ververica.cep.demo.event;
+package com.ververica.cep.demo.event;
 
 import org.apache.flink.api.common.serialization.DeserializationSchema;
 import org.apache.flink.api.common.typeinfo.TypeInformation;

@@ -1,4 +1,4 @@
-package com.alibaba.ververica.cep.demo;
+package com.ververica.cep.demo;
 
 public final class Constants {
     // Required configurations constants for connecting to Database

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.alibaba.ververica.cep.demo.dynamic;
+package com.ververica.cep.demo.dynamic;
 
 import org.apache.flink.annotation.PublicEvolving;
 import org.apache.flink.api.java.functions.KeySelector;
