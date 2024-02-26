@@ -21,7 +21,7 @@ The `JAR` artifact file will be created in path `target/ververica-cep-demo-<VERS
 
 ## Acknowledgment
 
-The initial version of this demo was provided in `RealtimeCompute/ververica-cep-demo` repository.
+The initial version of this demo was provided in [`RealtimeCompute/ververica-cep-demo`](https://github.com/RealtimeCompute/ververica-cep-demo) repository.
 
 ## License
 
