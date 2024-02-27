@@ -25,4 +25,4 @@ The initial version of this demo was provided in [`RealtimeCompute/ververica-cep
 
 ## License
 
-[MIT License (MIT)](LICENSE)
+[Apache License 2.0](LICENSE.txt)
