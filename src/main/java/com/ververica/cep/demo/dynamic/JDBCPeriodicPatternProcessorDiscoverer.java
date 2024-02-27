@@ -27,6 +27,7 @@ import org.apache.flink.cep.dynamic.impl.json.spec.GraphSpec;
 import org.apache.flink.cep.dynamic.impl.json.spec.NodeSpec;
 import org.apache.flink.cep.dynamic.processor.PatternProcessor;
 import org.apache.flink.cep.functions.PatternProcessFunction;
+import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.module.SimpleModule;
@@ -134,6 +135,7 @@ public class JDBCPeriodicPatternProcessorDiscoverer<T> extends PeriodicPatternPr
         return false;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<PatternProcessor<T>> getLatestPatternProcessors() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper().registerModule(
@@ -146,17 +148,15 @@ public class JDBCPeriodicPatternProcessorDiscoverer<T> extends PeriodicPatternPr
                 String patternStr = patternProcessor.f2;
                 GraphSpec graphSpec = objectMapper.readValue(patternStr, GraphSpec.class);
                 objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-                System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(graphSpec));
+                LOGGER.info(() -> getJsonString(objectMapper, graphSpec));
                 PatternProcessFunction<T, ?> patternProcessFunction = null;
                 String id = patternProcessor.f0;
                 int version = patternProcessor.f1;
-
                 if (!StringUtils.isNullOrWhitespaceOnly(patternProcessor.f3)) {
                     patternProcessFunction = (PatternProcessFunction<T, ?>) this.userCodeClassLoader.loadClass(
                             patternProcessor.f3).getConstructor(String.class, int.class).newInstance(id, version);
                 }
-                final String jsonString = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(patternProcessor.f2);
-                LOGGER.warning(() -> jsonString);
+                LOGGER.warning(() -> getJsonString(objectMapper, patternProcessor.f2));
                 return new DefaultPatternProcessor<>(patternProcessor.f0, patternProcessor.f1, patternStr,
                         patternProcessFunction, this.userCodeClassLoader);
             } catch (Exception e) {
@@ -165,6 +165,14 @@ public class JDBCPeriodicPatternProcessorDiscoverer<T> extends PeriodicPatternPr
             }
             return null;
         }).collect(Collectors.toList());
+    }
+
+    private static String getJsonString(final ObjectMapper objectMapper, final Object obj) {
+        try {
+            return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
+        } catch (final JsonProcessingException exception) {
+            throw new RuntimeException(exception);
+        }
     }
 
     @Override
