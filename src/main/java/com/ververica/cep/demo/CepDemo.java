@@ -40,7 +40,7 @@ import static com.ververica.cep.demo.Constants.TABLE_NAME_ARG;
  * Dynamic CEP demo main class.
  */
 public class CepDemo {
-    private static final Logger LOGGER = new Logger.getLogger(CepDemo.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(CepDemo.class.getName());
 
     /**
      * Main entry method.

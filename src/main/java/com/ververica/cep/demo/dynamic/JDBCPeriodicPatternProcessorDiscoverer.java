@@ -18,6 +18,7 @@
 
 package com.ververica.cep.demo.dynamic;
 
+import com.ververica.cep.demo.CepDemoException;
 import org.apache.flink.api.java.tuple.Tuple4;
 import org.apache.flink.cep.dynamic.impl.json.deserializer.ConditionSpecStdDeserializer;
 import org.apache.flink.cep.dynamic.impl.json.deserializer.NodeSpecStdDeserializer;
@@ -171,7 +172,7 @@ public class JDBCPeriodicPatternProcessorDiscoverer<T> extends PeriodicPatternPr
         try {
             return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
         } catch (final JsonProcessingException exception) {
-            throw new RuntimeException(exception);
+            throw new CepDemoException("Failed to write as JSON string.", exception);
         }
     }
 
