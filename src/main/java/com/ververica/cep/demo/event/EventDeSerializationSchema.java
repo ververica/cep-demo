@@ -4,7 +4,6 @@ import org.apache.flink.api.common.serialization.DeserializationSchema;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.connector.kafka.source.reader.deserializer.KafkaRecordDeserializationSchema;
 import org.apache.flink.util.Collector;
-
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import java.io.IOException;
@@ -23,9 +22,8 @@ public class EventDeSerializationSchema implements KafkaRecordDeserializationSch
     }
 
     @Override
-    public void deserialize(
-            ConsumerRecord<byte[], byte[]> consumerRecord, Collector<Event> collector)
-            throws IOException {
+    public void deserialize(ConsumerRecord<byte[], byte[]> consumerRecord,
+            Collector<Event> collector) throws IOException {
         collector.collect(Event.fromString(new String(consumerRecord.value())));
     }
 }
