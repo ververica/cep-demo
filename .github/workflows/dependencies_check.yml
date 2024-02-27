@@ -1,0 +1,22 @@
+name: Dependencies Vulnerabilities Check
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 11
+          cache: 'maven'
+      - name: Checking dependencies for vulnerabilities
+        run: mvn org.sonatype.ossindex.maven:ossindex-maven-plugin:audit --file pom.xml
