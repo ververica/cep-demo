@@ -2,7 +2,7 @@
 
 A demo of Flink CEP with dynamic patterns.
 
-Please follow the example [blog post]() to deploy and run it on the [Ververica Cloud]().
+Please follow the example [Dynamic Flink CEP](https://docs.ververica.com/vvc/get-started/flink-cep) blog post to deploy and run it on the [Ververica Cloud](https://www.ververica.com/cloud).
 
 ## Prerequisite
 
