@@ -24,6 +24,9 @@ jobs:
           distribution: 'temurin'
           java-version: 11
           cache: 'maven'
+          server-id: ververica-artifactory
+          server-username: ARTIFACTORY_USERNAME
+          server-password: ARTIFACTORY_TOKEN
       - name: Run build
         run: |
           mvn --batch-mode clean verify \
