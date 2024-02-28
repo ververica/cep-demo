@@ -101,7 +101,7 @@ public class JDBCPeriodicPatternProcessorDiscoverer<T> extends PeriodicPatternPr
         }
 
         try {
-            resultSet = statement.executeQuery("SELECT * FROM " + tableName);
+            resultSet = statement.executeQuery("SELECT * FROM " + quote(tableName));
             Map<String, Tuple4<String, Integer, String, String>> currentPatternProcessors = new HashMap<>();
             while (resultSet.next()) {
                 String id = resultSet.getString("id");
@@ -134,6 +134,10 @@ public class JDBCPeriodicPatternProcessorDiscoverer<T> extends PeriodicPatternPr
             }
         }
         return false;
+    }
+
+    private String quote(final String identifier) {
+        return "`" + identifier.replace("`", "``") + "`";
     }
 
     @SuppressWarnings("unchecked")
