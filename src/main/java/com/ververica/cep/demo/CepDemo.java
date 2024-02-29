@@ -26,6 +26,8 @@ import com.ververica.cep.demo.dynamic.JDBCPeriodicPatternProcessorDiscovererFact
 import com.ververica.cep.demo.event.Event;
 import com.ververica.cep.demo.event.EventDeSerializationSchema;
 
+import java.util.logging.Logger;
+
 import static com.ververica.cep.demo.Constants.INPUT_TOPIC_ARG;
 import static com.ververica.cep.demo.Constants.INPUT_TOPIC_GROUP_ARG;
 import static com.ververica.cep.demo.Constants.JDBC_DRIVE;
@@ -38,6 +40,7 @@ import static com.ververica.cep.demo.Constants.TABLE_NAME_ARG;
  * Dynamic CEP demo main class.
  */
 public class CepDemo {
+    private static final Logger LOGGER = Logger.getLogger(CepDemo.class.getName());
 
     /**
      * Main entry method.
@@ -121,7 +124,8 @@ public class CepDemo {
     }
 
     private static void printTestPattern(Pattern<?, ?> pattern) throws JsonProcessingException {
-        System.out.println(CepJsonUtils.convertPatternToJSONString(pattern));
+        final String jsonPattern = CepJsonUtils.convertPatternToJSONString(pattern);
+        LOGGER.info(() -> "Test pattern '" + jsonPattern + "'.");
     }
 
     private static void checkArg(String argName, MultipleParameterTool params) {

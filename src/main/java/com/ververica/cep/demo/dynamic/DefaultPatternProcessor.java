@@ -18,6 +18,7 @@
 
 package com.ververica.cep.demo.dynamic;
 
+import com.ververica.cep.demo.CepDemoException;
 import org.apache.flink.annotation.PublicEvolving;
 import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.cep.dynamic.impl.json.util.CepJsonUtils;
@@ -89,7 +90,7 @@ public class DefaultPatternProcessor<T> implements PatternProcessor<T> {
         try {
             return (Pattern<T, ?>) CepJsonUtils.convertJSONStringToPattern(patternStr, classLoader);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new CepDemoException("Failed to convert pattern to JSON string.", e);
         }
     }
 
