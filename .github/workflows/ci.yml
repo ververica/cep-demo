@@ -29,6 +29,5 @@ jobs:
           server-password: ${{ secrets.ARTIFACTORY_TOKEN }}
       - name: Run build
         run: |
-          mvn --batch-mode clean verify \
-              -DtrimStackTrace=false \
+          mvn --batch-mode clean verify -DtrimStackTrace=false \
               -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
