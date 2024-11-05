@@ -1,4 +1,4 @@
-name: CI Build
+name: "CI Build"
 
 on:
   push:
@@ -14,17 +14,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repository
+      - name: "Checkout the repository"
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Set up JDK
+      - name: "Set up JDK"
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: 11
           cache: 'maven'
-      - name: Run build
+      - name: "Run build"
         run: |
           mvn --batch-mode clean verify \
               -DtrimStackTrace=false \
