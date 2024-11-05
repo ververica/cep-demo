@@ -15,7 +15,8 @@ import static java.util.Objects.requireNonNull;
  *
  * @param <T> Base type of the elements appearing in the pattern.
  */
-public class JDBCPeriodicPatternProcessorDiscovererFactory<T> extends PeriodicPatternProcessorDiscovererFactory<T> {
+public class JDBCPeriodicPatternProcessorDiscovererFactory<T>
+        extends PeriodicPatternProcessorDiscovererFactory<T> {
     private final String jdbcUrl;
     private final String jdbcDriver;
     private final String tableName;

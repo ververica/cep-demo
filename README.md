@@ -19,7 +19,7 @@ To build and to create the jar file, run the following command:
 mvn clean verify
 ```
 
-The `JAR` artifact file will be created in path `target/ververica-cep-demo-<VERSION>.jar`.
+The `JAR` artifact file will be created in path `target/cep-demo-<VERSION>.jar`.
 
 ## Acknowledgement
 

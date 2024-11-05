@@ -1,4 +1,4 @@
-name: Dependencies Vulnerabilities Check
+name: "Dependencies Vulnerabilities Check"
 
 on:
   schedule:
@@ -8,15 +8,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repository
+      - name: "Checkout the repository"
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Set up JDK
+      - name: "Set up JDK"
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: 11
           cache: 'maven'
-      - name: Checking dependencies for vulnerabilities
+      - name: "Checking dependencies for vulnerabilities"
         run: mvn org.sonatype.ossindex.maven:ossindex-maven-plugin:audit --file pom.xml
