@@ -1,7 +1,8 @@
 package com.ververica.cep.demo.condition;
 
-import com.ververica.cep.demo.event.Event;
 import org.apache.flink.cep.dynamic.condition.AviatorCondition;
+
+import com.ververica.cep.demo.event.Event;
 
 public class StartCondition extends AviatorCondition<Event> {
 

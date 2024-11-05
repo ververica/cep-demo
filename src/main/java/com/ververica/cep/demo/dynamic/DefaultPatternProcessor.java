@@ -18,13 +18,14 @@
 
 package com.ververica.cep.demo.dynamic;
 
-import com.ververica.cep.demo.CepDemoException;
 import org.apache.flink.annotation.PublicEvolving;
 import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.cep.dynamic.impl.json.util.CepJsonUtils;
 import org.apache.flink.cep.dynamic.processor.PatternProcessor;
 import org.apache.flink.cep.functions.PatternProcessFunction;
 import org.apache.flink.cep.pattern.Pattern;
+
+import com.ververica.cep.demo.CepDemoException;
 
 import javax.annotation.Nullable;
 
@@ -35,29 +36,26 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * {@link KeySelector} and {@link PatternProcessFunction}.
  *
  * @param <T> Type of the elements appearing in the pattern and produced elements based on found
- *            matches.
+ *     matches.
  */
 @PublicEvolving
 public class DefaultPatternProcessor<T> implements PatternProcessor<T> {
 
-    /**
-     * The ID of the pattern processor.
-     */
+    /** The ID of the pattern processor. */
     private final String id;
 
-    /**
-     * The version of the pattern processor.
-     */
+    /** The version of the pattern processor. */
     private final Integer version;
 
-    /**
-     * The pattern of the pattern processor.
-     */
+    /** The pattern of the pattern processor. */
     private final String patternStr;
 
     private final @Nullable PatternProcessFunction<T, ?> patternProcessFunction;
 
-    public DefaultPatternProcessor(final String id, final Integer version, final String pattern,
+    public DefaultPatternProcessor(
+            final String id,
+            final Integer version,
+            final String pattern,
             final @Nullable PatternProcessFunction<T, ?> patternProcessFunction,
             final ClassLoader userCodeClassLoader) {
         this.id = checkNotNull(id);
@@ -69,9 +67,16 @@ public class DefaultPatternProcessor<T> implements PatternProcessor<T> {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append("DefaultPatternProcessor{").append("id='").append(id).append('\'' + ", version=").append(version)
-                .append(", pattern=").append(patternStr).append(", patternProcessFunction=")
-                .append(patternProcessFunction).append('}');
+        sb.append("DefaultPatternProcessor{")
+                .append("id='")
+                .append(id)
+                .append('\'' + ", version=")
+                .append(version)
+                .append(", pattern=")
+                .append(patternStr)
+                .append(", patternProcessFunction=")
+                .append(patternProcessFunction)
+                .append('}');
         return sb.toString();
     }
 

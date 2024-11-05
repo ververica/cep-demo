@@ -36,9 +36,7 @@ import static com.ververica.cep.demo.Constants.JDBC_URL_ARG;
 import static com.ververica.cep.demo.Constants.KAFKA_BROKERS_ARG;
 import static com.ververica.cep.demo.Constants.TABLE_NAME_ARG;
 
-/**
- * Dynamic CEP demo main class.
- */
+/** Dynamic CEP demo main class. */
 public class CepDemo {
     private static final Logger LOGGER = Logger.getLogger(CepDemo.class.getName());
 
@@ -65,8 +63,12 @@ public class CepDemo {
                 KafkaSource.<Event>builder()
                         .setProperty("security.protocol", "SASL_SSL")
                         .setProperty("sasl.mechanism", "AWS_MSK_IAM")
-                        .setProperty("sasl.jaas.config", "software.amazon.msk.auth.iam.IAMLoginModule required;")
-                        .setProperty("sasl.client.callback.handler.class", "software.amazon.msk.auth.iam.IAMClientCallbackHandler")
+                        .setProperty(
+                                "sasl.jaas.config",
+                                "software.amazon.msk.auth.iam.IAMLoginModule required;")
+                        .setProperty(
+                                "sasl.client.callback.handler.class",
+                                "software.amazon.msk.auth.iam.IAMClientCallbackHandler")
                         .setProperty("ssl.endpoint.identification.algorithm", "")
                         .setBootstrapServers(params.get(KAFKA_BROKERS_ARG))
                         .setTopics(params.get(INPUT_TOPIC_ARG))
@@ -89,7 +91,6 @@ public class CepDemo {
         KeyedStream<Event, Tuple2<Integer, Integer>> keyedStream =
                 source.keyBy(
                         new KeySelector<Event, Tuple2<Integer, Integer>>() {
-
                             @Override
                             public Tuple2<Integer, Integer> getKey(Event value) throws Exception {
                                 return Tuple2.of(value.getId(), value.getProductionId());
@@ -133,5 +134,4 @@ public class CepDemo {
             throw new IllegalArgumentException("The argument '" + argName + "' must be set!");
         }
     }
-
 }

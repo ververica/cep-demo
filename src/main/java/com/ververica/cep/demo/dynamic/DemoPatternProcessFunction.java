@@ -16,7 +16,8 @@ public class DemoPatternProcessFunction<IN> extends PatternProcessFunction<IN, S
     }
 
     @Override
-    public void processMatch(final Map<String, List<IN>> match, final Context ctx, final Collector<String> out) {
+    public void processMatch(
+            final Map<String, List<IN>> match, final Context ctx, final Collector<String> out) {
         StringBuilder sb = new StringBuilder();
         sb.append("A match for Pattern of (id, version): (")
                 .append(id)
