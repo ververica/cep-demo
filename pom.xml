@@ -3,14 +3,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.ververica</groupId>
-    <artifactId>ververica-cep-demo</artifactId>
+    <artifactId>cep-demo</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <properties>
         <java.version>11</java.version>
         <flink.version>1.17.0</flink.version>
         <flink.major.version>1.17</flink.major.version>
-        <vera.version>1.17-vvr-1.0.3</vera.version>
+        <vera.version>1.17-vvr-1.0.6</vera.version>
         <scala.binary.version>2.12</scala.binary.version>
         <log4j.version>2.23.0</log4j.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,7 +18,7 @@
     <repositories>
         <repository>
             <id>ververica-artifactory</id>
-            <url>https://ververica.jfrog.io/artifactory/vvr-flink-local</url>
+            <url>https://ververica.jfrog.io/artifactory/vvc-connectors-community-release-local</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
