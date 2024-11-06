@@ -10,7 +10,7 @@
         <java.version>11</java.version>
         <flink.version>1.17.0</flink.version>
         <flink.major.version>1.17</flink.major.version>
-        <vera.version>1.17-vvr-1.0.6</vera.version>
+        <vera.version>${flink.major.version}-vvr-1.0.6</vera.version>
         <scala.binary.version>2.12</scala.binary.version>
         <log4j.version>2.23.0</log4j.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,7 +25,13 @@
         </repository>
     </repositories>
     <dependencies>
-        <!-- Apache Flink dependencies -->
+        <dependency>
+            <groupId>com.ververica</groupId>
+            <artifactId>flink-cep</artifactId>
+            <version>${vera.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Apache Flink Dependencies -->
         <!-- These dependencies are provided, because they should not be packaged into the JAR file. -->
         <dependency>
             <groupId>org.apache.flink</groupId>
@@ -71,10 +77,10 @@
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-cep</artifactId>
-            <version>${vera.version}</version>
-            <scope>provided</scope>
+            <artifactId>flink-connector-kafka</artifactId>
+            <version>${flink.version}</version>
         </dependency>
+        <!-- Demo Dependencies -->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
@@ -90,11 +96,6 @@
                     <artifactId>protobuf-java</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-connector-kafka</artifactId>
-            <version>${flink.version}</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.msk</groupId>
