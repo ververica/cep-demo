@@ -65,7 +65,6 @@ public class CepDemo {
                         .setProperty(
                                 "sasl.client.callback.handler.class",
                                 "software.amazon.msk.auth.iam.IAMClientCallbackHandler")
-                        .setProperty("ssl.endpoint.identification.algorithm", "")
                         .setBootstrapServers(params.get(KAFKA_BROKERS_ARG))
                         .setTopics(params.get(INPUT_TOPIC_ARG))
                         .setStartingOffsets(OffsetsInitializer.latest())
