@@ -37,6 +37,8 @@ import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.Serializa
 import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.module.SimpleModule;
 
 import com.ververica.cep.demo.CepDemoException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
 
@@ -49,7 +51,6 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
@@ -63,7 +64,7 @@ import static java.util.Objects.requireNonNull;
 public class JDBCPeriodicPatternProcessorDiscoverer<T>
         extends PeriodicPatternProcessorDiscoverer<T> {
     private static final Logger LOGGER =
-            Logger.getLogger(JDBCPeriodicPatternProcessorDiscoverer.class.getName());
+            LoggerFactory.getLogger(JDBCPeriodicPatternProcessorDiscoverer.class);
 
     private final String tableName;
     private final String jdbcUrl;
@@ -137,11 +138,10 @@ public class JDBCPeriodicPatternProcessorDiscoverer<T>
                 return false;
             }
         } catch (SQLException e) {
-            LOGGER.warning(
-                    () ->
-                            "Pattern processor discoverer failed to check rule changes, will try to recreate "
-                                    + "connection."
-                                    + e.getMessage());
+            LOGGER.warn(
+                    "Pattern processor discoverer failed to check rule changes, will try to recreate "
+                            + "connection."
+                            + e.getMessage());
             try {
                 statement.close();
                 connection.close();
@@ -183,7 +183,7 @@ public class JDBCPeriodicPatternProcessorDiscoverer<T>
                                 GraphSpec graphSpec =
                                         objectMapper.readValue(patternStr, GraphSpec.class);
                                 objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-                                LOGGER.info(() -> getJsonString(objectMapper, graphSpec));
+                                System.out.println(getJsonString(objectMapper, graphSpec));
                                 PatternProcessFunction<T, ?> patternProcessFunction = null;
                                 String id = patternProcessor.f0;
                                 int version = patternProcessor.f1;
@@ -195,8 +195,7 @@ public class JDBCPeriodicPatternProcessorDiscoverer<T>
                                                             .getConstructor(String.class, int.class)
                                                             .newInstance(id, version);
                                 }
-                                LOGGER.warning(
-                                        () -> getJsonString(objectMapper, patternProcessor.f2));
+                                LOGGER.warn(getJsonString(objectMapper, patternProcessor.f2));
                                 return new DefaultPatternProcessor<>(
                                         patternProcessor.f0,
                                         patternProcessor.f1,
@@ -204,10 +203,9 @@ public class JDBCPeriodicPatternProcessorDiscoverer<T>
                                         patternProcessFunction,
                                         this.userCodeClassLoader);
                             } catch (Exception e) {
-                                LOGGER.severe(
-                                        () ->
-                                                "Get the latest pattern processors of the discoverer failure. - "
-                                                        + e.getMessage());
+                                LOGGER.error(
+                                        "Get the latest pattern processors of the discoverer failure. - "
+                                                + e.getMessage());
                                 e.printStackTrace();
                             }
                             return null;
@@ -231,10 +229,9 @@ public class JDBCPeriodicPatternProcessorDiscoverer<T>
                 resultSet.close();
             }
         } catch (SQLException e) {
-            LOGGER.warning(
-                    () ->
-                            "ResultSet of the pattern processor discoverer couldn't be closed - "
-                                    + e.getMessage());
+            LOGGER.warn(
+                    "ResultSet of the pattern processor discoverer couldn't be closed - "
+                            + e.getMessage());
         } finally {
             resultSet = null;
         }
@@ -243,10 +240,9 @@ public class JDBCPeriodicPatternProcessorDiscoverer<T>
                 statement.close();
             }
         } catch (SQLException e) {
-            LOGGER.warning(
-                    () ->
-                            "Statement of the pattern processor discoverer couldn't be closed - "
-                                    + e.getMessage());
+            LOGGER.warn(
+                    "Statement of the pattern processor discoverer couldn't be closed - "
+                            + e.getMessage());
         } finally {
             statement = null;
         }
